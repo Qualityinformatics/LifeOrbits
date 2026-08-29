@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life Orbits — A Priority Instrument</title>
+<meta name="theme-color" content="#12142a">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjogIkxpZmUgT3JiaXRzIFx1MjAxNCBBIFByaW9yaXR5IEluc3RydW1lbnQiLCAic2hvcnRfbmFtZSI6ICJMaWZlIE9yYml0cyIsICJzdGFydF91cmwiOiAiLiIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjMTIxNDJhIiwgInRoZW1lX2NvbG9yIjogIiNkOWE0NDEiLCAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQXlNREFnTWpBd0lqNDhjbVZqZENCM2FXUjBhRDBpTWpBd0lpQm9aV2xuYUhROUlqSXdNQ0lnY25nOUlqTTJJaUJtYVd4c1BTSWpNVEl4TkRKaElpOCtQR05wY21Oc1pTQmplRDBpTVRBd0lpQmplVDBpTVRBd0lpQnlQU0l6TkNJZ1ptbHNiRDBpYm05dVpTSWdjM1J5YjJ0bFBTSWpaRGxoTkRReElpQnpkSEp2YTJVdGIzQmhZMmwwZVQwaUxqWWlJSE4wY205clpTMTNhV1IwYUQwaU15SXZQanhqYVhKamJHVWdZM2c5SWpFd01DSWdZM2s5SWpFd01DSWdjajBpTmpJaUlHWnBiR3c5SW01dmJtVWlJSE4wY205clpUMGlJMk01TjJJNE5DSWdjM1J5YjJ0bExXOXdZV05wZEhrOUlpNDFJaUJ6ZEhKdmEyVXRkMmxrZEdnOUlqTWlMejQ4WTJseVkyeGxJR040UFNJeE1EQWlJR041UFNJeE1EQWlJSEk5SWpnNElpQm1hV3hzUFNKdWIyNWxJaUJ6ZEhKdmEyVTlJaU0yWm1FellUQWlJSE4wY205clpTMXZjR0ZqYVhSNVBTSXVORFVpSUhOMGNtOXJaUzEzYVdSMGFEMGlNeUl2UGp4amFYSmpiR1VnWTNnOUlqRXdNQ0lnWTNrOUlqRXdNQ0lnY2owaU9TSWdabWxzYkQwaUkyUTVZVFEwTVNJdlBqeGphWEpqYkdVZ1kzZzlJakV6TkNJZ1kzazlJakV3TUNJZ2NqMGlOeUlnWm1sc2JEMGlJemhtWWpBNFl5SXZQanhqYVhKamJHVWdZM2c5SWpjeUlpQmplVDBpTnpBaUlISTlJallpSUdacGJHdzlJaU5sT0Rjek5XSWlMejQ4WTJseVkyeGxJR040UFNJeE1EQWlJR041UFNJeE1pSWdjajBpTnlJZ1ptbHNiRDBpSTJVNE56TTFZaUl2UGp4amFYSmpiR1VnWTNnOUlqRTRNQ0lnWTNrOUlqWXdJaUJ5UFNJMUlpQm1hV3hzUFNJak9HWmlNRGhqSWk4K1BDOXpkbWMrIiwgInNpemVzIjogIjE5MngxOTIiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwgInB1cnBvc2UiOiAiYW55In0sIHsic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0F5TURBZ01qQXdJajQ4Y21WamRDQjNhV1IwYUQwaU1qQXdJaUJvWldsbmFIUTlJakl3TUNJZ2NuZzlJak0ySWlCbWFXeHNQU0lqTVRJeE5ESmhJaTgrUEdOcGNtTnNaU0JqZUQwaU1UQXdJaUJqZVQwaU1UQXdJaUJ5UFNJek5DSWdabWxzYkQwaWJtOXVaU0lnYzNSeWIydGxQU0lqWkRsaE5EUXhJaUJ6ZEhKdmEyVXRiM0JoWTJsMGVUMGlMallpSUhOMGNtOXJaUzEzYVdSMGFEMGlNeUl2UGp4amFYSmpiR1VnWTNnOUlqRXdNQ0lnWTNrOUlqRXdNQ0lnY2owaU5qSWlJR1pwYkd3OUltNXZibVVpSUhOMGNtOXJaVDBpSTJNNU4ySTROQ0lnYzNSeWIydGxMVzl3WVdOcGRIazlJaTQxSWlCemRISnZhMlV0ZDJsa2RHZzlJak1pTHo0OFkybHlZMnhsSUdONFBTSXhNREFpSUdONVBTSXhNREFpSUhJOUlqZzRJaUJtYVd4c1BTSnViMjVsSWlCemRISnZhMlU5SWlNMlptRXpZVEFpSUhOMGNtOXJaUzF2Y0dGamFYUjVQU0l1TkRVaUlITjBjbTlyWlMxM2FXUjBhRDBpTXlJdlBqeGphWEpqYkdVZ1kzZzlJakV3TUNJZ1kzazlJakV3TUNJZ2NqMGlPU0lnWm1sc2JEMGlJMlE1WVRRME1TSXZQanhqYVhKamJHVWdZM2c5SWpFek5DSWdZM2s5SWpFd01DSWdjajBpTnlJZ1ptbHNiRDBpSXpobVlqQTRZeUl2UGp4amFYSmpiR1VnWTNnOUlqY3lJaUJqZVQwaU56QWlJSEk5SWpZaUlHWnBiR3c5SWlObE9EY3pOV0lpTHo0OFkybHlZMnhsSUdONFBTSXhNREFpSUdONVBTSXhNaUlnY2owaU55SWdabWxzYkQwaUkyVTROek0xWWlJdlBqeGphWEpqYkdVZ1kzZzlJakU0TUNJZ1kzazlJall3SWlCeVBTSTFJaUJtYVd4c1BTSWpPR1ppTURoaklpOCtQQzl6ZG1jKyIsICJzaXplcyI6ICI1MTJ4NTEyIiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsICJwdXJwb3NlIjogImFueSJ9XX0=">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgcng9IjM2IiBmaWxsPSIjMTIxNDJhIi8+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSIzNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZDlhNDQxIiBzdHJva2Utb3BhY2l0eT0iLjYiIHN0cm9rZS13aWR0aD0iMyIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2M5N2I4NCIgc3Ryb2tlLW9wYWNpdHk9Ii41IiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijg4IiBmaWxsPSJub25lIiBzdHJva2U9IiM2ZmEzYTAiIHN0cm9rZS1vcGFjaXR5PSIuNDUiIHN0cm9rZS13aWR0aD0iMyIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iOSIgZmlsbD0iI2Q5YTQ0MSIvPjxjaXJjbGUgY3g9IjEzNCIgY3k9IjEwMCIgcj0iNyIgZmlsbD0iIzhmYjA4YyIvPjxjaXJjbGUgY3g9IjcyIiBjeT0iNzAiIHI9IjYiIGZpbGw9IiNlODczNWIiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMiIgcj0iNyIgZmlsbD0iI2U4NzM1YiIvPjxjaXJjbGUgY3g9IjE4MCIgY3k9IjYwIiByPSI1IiBmaWxsPSIjOGZiMDhjIi8+PC9zdmc+">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgcng9IjM2IiBmaWxsPSIjMTIxNDJhIi8+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSIzNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZDlhNDQxIiBzdHJva2Utb3BhY2l0eT0iLjYiIHN0cm9rZS13aWR0aD0iMyIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2M5N2I4NCIgc3Ryb2tlLW9wYWNpdHk9Ii41IiBzdHJva2Utd2lkdGg9IjMiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijg4IiBmaWxsPSJub25lIiBzdHJva2U9IiM2ZmEzYTAiIHN0cm9rZS1vcGFjaXR5PSIuNDUiIHN0cm9rZS13aWR0aD0iMyIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iOSIgZmlsbD0iI2Q5YTQ0MSIvPjxjaXJjbGUgY3g9IjEzNCIgY3k9IjEwMCIgcj0iNyIgZmlsbD0iIzhmYjA4YyIvPjxjaXJjbGUgY3g9IjcyIiBjeT0iNzAiIHI9IjYiIGZpbGw9IiNlODczNWIiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMiIgcj0iNyIgZmlsbD0iI2U4NzM1YiIvPjxjaXJjbGUgY3g9IjE4MCIgY3k9IjYwIiByPSI1IiBmaWxsPSIjOGZiMDhjIi8+PC9zdmc+">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Life Orbits">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12142a;
+    --bg-panel:#1a1d3a;
+    --bg-panel-2:#232752;
+    --hair:#33376a;
+    --text:#f1eee4;
+    --text-dim:#a9acc9;
+    --gold:#d9a441;
+    --gold-dim:#8a6b33;
+    --coral:#e8735b;
+    --sage:#8fb08c;
+    --slate:#7a88b8;
+    --self-c:#d9a441;
+    --family-c:#c97b84;
+    --friends-c:#6fa3a0;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0; overscroll-behavior:none; overflow-x:hidden; max-width:100%;}
+  body{
+    background:radial-gradient(ellipse at 50% -10%, #1c2050 0%, var(--bg) 55%);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  h1,h2,h3{font-family:'Fraunces', serif; margin:0; font-weight:600; letter-spacing:-0.01em;}
+  #app{max-width:760px; margin:0 auto; padding:48px 24px 96px;}
+
+  .bottom-bar{
+    position:fixed; left:0; right:0; bottom:0; z-index:600;
+    display:flex; align-items:center; gap:8px;
+    background:var(--bg-panel); border-top:1px solid var(--hair);
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+    max-width:760px; margin:0 auto;
+  }
+  .bar-icon-btn{
+    flex:0 0 auto; width:42px; height:42px; border-radius:10px;
+    background:var(--bg-panel-2); border:1px solid var(--hair); color:var(--text);
+    font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
+  .bar-icon-btn:disabled{opacity:.3; cursor:not-allowed;}
+  .bar-primary-btn{flex:1 1 auto; padding:12px 16px; font-size:14.5px; min-width:0; white-space:normal; overflow-wrap:break-word; text-align:center; line-height:1.25;}
+  @media(max-width:370px){
+    .bar-icon-btn{width:38px; height:38px; font-size:15px;}
+    .bottom-bar{gap:6px; padding-left:10px; padding-right:10px;}
+    .bar-primary-btn{font-size:13.5px; padding:12px 10px;}
+  }
+
+  .menu-popover{
+    position:fixed; left:14px; right:14px; bottom:70px; z-index:601; max-width:732px; margin:0 auto;
+    background:var(--bg-panel-2); border:1px solid var(--hair); border-radius:12px;
+    padding:6px; box-shadow:0 8px 24px rgba(0,0,0,.4);
+  }
+  .menu-item{
+    display:block; width:100%; text-align:left; background:none; border:none; color:var(--text);
+    font-family:'Inter',sans-serif; font-size:14.5px; padding:13px 14px; cursor:pointer; border-radius:8px;
+  }
+  .menu-item:hover{background:rgba(255,255,255,.06);}
+  .menu-popover > *:not(:first-child){border-top:1px solid var(--hair); border-radius:0;}
+  .menu-empty{padding:13px 14px; color:var(--text-dim); font-size:13.5px;}
+  .menu-group-toggle{display:flex; align-items:center; justify-content:space-between; border-radius:0;}
+  .menu-chevron{color:var(--text-dim); transition:transform .15s ease; font-size:16px;}
+  .menu-group-toggle.open .menu-chevron{transform:rotate(90deg); color:var(--gold);}
+  .menu-submenu{background:rgba(0,0,0,.18);}
+  .menu-subitem{padding-left:30px; font-size:14px; color:var(--text-dim); border-radius:0;}
+  .menu-submenu .menu-subitem + .menu-subitem{border-top:1px solid var(--hair);}
+
+  .toast-msg{
+    position:fixed; left:50%; bottom:80px; transform:translateX(-50%) translateY(10px);
+    background:var(--bg-panel-2); border:1px solid var(--hair); color:var(--text);
+    padding:10px 18px; border-radius:20px; font-size:13.5px; opacity:0; pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease; z-index:700; max-width:80vw; text-align:center;
+  }
+  .toast-msg.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  .save-modal{
+    position:fixed; inset:0; z-index:800; background:rgba(0,0,0,.55);
+    display:flex; align-items:flex-end; justify-content:center;
+  }
+  .save-modal-inner{
+    background:var(--bg-panel); border:1px solid var(--hair); border-radius:16px 16px 0 0;
+    width:100%; max-width:732px; padding:22px; box-sizing:border-box;
+    padding-bottom:calc(22px + env(safe-area-inset-bottom, 0px));
+  }
+  .save-modal-head{font-family:'Fraunces',serif; font-size:19px; font-weight:600; margin-bottom:8px;}
+  .save-modal-sub{color:var(--text-dim); font-size:13px; line-height:1.55; margin:0 0 14px;}
+  .save-code-area{
+    width:100%; min-height:120px; background:var(--bg-panel-2); border:1px solid var(--hair); border-radius:8px;
+    color:var(--text); font-family:'IBM Plex Mono',monospace; font-size:11.5px; padding:10px;
+    resize:vertical; margin-bottom:14px; box-sizing:border-box;
+  }
+  .save-modal-actions{display:flex; gap:12px;}
+  .save-modal-actions button{flex:1;}
+
+  .save-anchors-status{font-size:13px; color:var(--sage); min-height:18px; margin-top:6px;}
+  .anchor-field{margin-bottom:16px;}
+  .anchor-field label{display:block; font-size:13px; color:var(--text-dim); margin-bottom:6px;}
+  .anchor-field label strong{color:var(--text); display:block; font-size:14.5px; margin-bottom:2px;}
+  .anchor-field input{
+    width:100%; background:var(--bg-panel); border:1px solid var(--hair); border-radius:8px;
+    padding:11px 12px; color:var(--text); font-family:'Inter',sans-serif; font-size:14px;
+  }
+  .anchor-field input:focus{outline:none; border-color:var(--gold);}
+  .screen{display:none; animation:fadeIn .5s ease;}
+  .screen.active{display:block;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:14px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--gold); display:inline-block;}
+
+  #hero h1{font-size:clamp(34px,6vw,50px); line-height:1.06;}
+  #hero .sub{color:var(--text-dim); font-size:16.5px; line-height:1.65; max-width:54ch; margin-top:16px;}
+  #hero .sub strong{color:var(--text);}
+  .orbit-preview{margin:32px 0; display:flex; justify-content:center;}
+  .stage-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:26px;}
+  @media(min-width:560px){.stage-grid{grid-template-columns:1fr 1fr 1fr;}}
+  .stage-btn{
+    background:var(--bg-panel); border:1px solid var(--hair); color:var(--text);
+    border-radius:10px; padding:14px 12px; text-align:left; cursor:pointer;
+    font-family:'Inter',sans-serif; font-size:13.5px; line-height:1.4; transition:border-color .15s, background .15s;
+  }
+  .stage-btn strong{display:block; font-size:14px; margin-bottom:2px;}
+  .stage-btn:hover{border-color:var(--gold-dim);}
+  .stage-btn.selected{border-color:var(--gold); background:#2a2350;}
+  button.ghost.small{padding:9px 16px; font-size:13px;}
+
+  .begin-row{margin-top:30px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+
+  button.primary{
+    background:var(--gold); color:#1a1408; border:none; border-radius:10px;
+    padding:14px 26px; font-family:'Inter',sans-serif; font-weight:600; font-size:15px;
+    cursor:pointer; transition:transform .15s, box-shadow .15s;
+  }
+  button.primary:hover{transform:translateY(-1px); box-shadow:0 6px 20px rgba(217,164,65,.25);}
+  button.ghost{
+    background:transparent; color:var(--text-dim); border:1px solid var(--hair); border-radius:10px;
+    padding:14px 22px; font-family:'Inter',sans-serif; font-size:14px; cursor:pointer;
+  }
+  button.ghost:hover{color:var(--text); border-color:var(--gold-dim);}
+
+  .step-tag{font-size:12px; color:var(--text-dim); margin-bottom:6px;}
+  .screen h2{font-size:26px; margin-bottom:6px;}
+  .screen .circle-desc{color:var(--text-dim); font-size:15px; margin-bottom:24px; max-width:54ch; line-height:1.6;}
+  .screen .circle-desc strong{color:var(--text);}
+
+  /* budget group */
+  .budget-block{background:var(--bg-panel); border:1px solid var(--hair); border-radius:var(--radius); padding:22px; margin-bottom:22px;}
+  .budget-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;}
+  .budget-head .ttl{font-size:13px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.08em; font-family:'IBM Plex Mono',monospace;}
+  .budget-total{font-family:'IBM Plex Mono',monospace; font-size:12px; padding:4px 10px; border-radius:20px; background:rgba(143,176,140,.15); color:var(--sage);}
+  .budget-bar{display:flex; width:100%; height:14px; border-radius:8px; overflow:hidden; background:var(--bg-panel-2); margin-bottom:20px;}
+  .budget-seg{height:100%; transition:width .2s ease;}
+  .budget-row{margin-bottom:16px;}
+  .budget-row:last-child{margin-bottom:0;}
+  .budget-row-top{display:flex; justify-content:space-between; font-size:14px; margin-bottom:8px; gap:8px;}
+  .budget-row-label{font-weight:500; min-width:0; overflow-wrap:break-word;}
+  .budget-row-val{color:var(--gold); font-size:13px;}
+
+  .domain-card{
+    background:var(--bg-panel); border:1px solid var(--hair); border-radius:var(--radius);
+    padding:20px 22px; margin-bottom:14px;
+  }
+  .domain-card h3{font-size:17px; margin-bottom:2px;}
+  .domain-card .desc{color:var(--text-dim); font-size:13px; margin-bottom:16px;}
+  .slider-label{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-size:12px; color:var(--text-dim); margin-bottom:8px; text-transform:uppercase; letter-spacing:.05em;
+  }
+  .slider-label .val{font-family:'IBM Plex Mono', monospace; color:var(--gold); font-size:13px;}
+  input[type=range]{-webkit-appearance:none; width:100%; height:8px; border-radius:5px; background:var(--bg-panel-2); outline:none; margin:6px 0;}
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:32px; height:32px; border-radius:50%;
+    background:var(--gold); cursor:pointer; border:4px solid #1a1408; box-shadow:0 0 0 2px var(--gold), 0 2px 8px rgba(0,0,0,.35);
+  }
+  input[type=range]::-moz-range-thumb{width:32px; height:32px; border-radius:50%; background:var(--gold); cursor:pointer; border:4px solid #1a1408; box-shadow:0 0 0 2px var(--gold), 0 2px 8px rgba(0,0,0,.35);}
+  .scale-ends{display:flex; justify-content:space-between; gap:14px; font-size:11px; color:#7d81a8; margin-top:8px; line-height:1.4;}
+  .scale-ends span{flex:1;}
+  .scale-ends span.r{text-align:right;}
+
+  .nav-row{display:flex; justify-content:space-between; align-items:center; margin-top:28px;}
+  .progress{display:flex; gap:6px;}
+  .progress span{width:22px; height:4px; border-radius:2px; background:var(--hair);}
+  .progress span.done{background:var(--gold-dim);}
+  .progress span.current{background:var(--gold);}
+
+  #result h2{font-size:28px;}
+  .diagram-wrap{background:var(--bg-panel); border:1px solid var(--hair); border-radius:var(--radius); padding:8px; margin:22px 0; display:flex; justify-content:center;}
+  svg{width:100%; height:auto; max-width:520px;}
+  .node-label{font-family:'Inter',sans-serif; font-size:11.5px; fill:var(--text);}
+  .node-score{font-family:'IBM Plex Mono', monospace; font-size:9.5px; fill:var(--text-dim);}
+  .ring-label{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase;}
+  .node-group{opacity:0; animation:pop .5s ease forwards;}
+  @keyframes pop{from{opacity:0; transform:scale(.4);} to{opacity:1; transform:scale(1);}}
+
+  .legend{display:flex; gap:18px; flex-wrap:wrap; margin:16px 0 4px; font-size:12.5px; color:var(--text-dim);}
+  .legend .item{display:flex; align-items:center; gap:7px;}
+  .legend .swatch{width:10px; height:10px; border-radius:50%; display:inline-block;}
+  .legend .swatch.ring{border-radius:2px;}
+
+  .rebalance-cta{background:var(--bg-panel); border:1px solid var(--hair); border-radius:var(--radius); padding:22px; margin:24px 0; text-align:center;}
+  .rebalance-cta-sub{color:var(--text-dim); font-size:13.5px; margin:12px 0 0; line-height:1.5;}
+
+  .plan-card{background:var(--bg-panel); border:1px solid var(--hair); border-radius:12px; padding:16px 18px; margin-bottom:12px;}
+  .plan-card-head{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:6px 12px; margin-bottom:6px;}
+  .plan-domain{font-weight:600; font-size:15px; min-width:0; overflow-wrap:break-word;}
+  .plan-cadence{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--gold); white-space:nowrap;}
+  .plan-action{color:var(--text-dim); font-size:13.5px; line-height:1.5; margin:0;}
+
+  .rebalance-panel{background:var(--bg-panel); border:1px solid var(--hair); border-radius:var(--radius); padding:20px 22px; margin:22px 0;}
+  .rebalance-hint{color:var(--text-dim); font-size:13px; line-height:1.55; margin:2px 0 16px;}
+  .rebalance-cols{display:grid; grid-template-columns:1fr 1fr; gap:10px; min-width:0;}
+  .rebalance-cols > div{min-width:0;}
+  @media(min-width:560px){.rebalance-cols{gap:18px;}}
+  .rebalance-col-label{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px;}
+  .rebalance-col-sub{font-size:12px; color:var(--text-dim); margin:0 0 10px; line-height:1.4;}
+  .rebalance-col-label.over{color:var(--slate);}
+  .rebalance-col-label.under{color:var(--coral);}
+  .chip-list{display:flex; flex-wrap:wrap; gap:8px; min-height:34px;}
+  .chip-empty{color:#6c709a; font-size:12.5px; font-style:italic;}
+  .chip{
+    display:inline-flex; align-items:center; gap:7px; padding:7px 13px; border-radius:20px;
+    font-size:13px; cursor:pointer; border:1px solid transparent; background:none;
+    font-family:'Inter',sans-serif; transition:transform .12s, filter .12s; -webkit-tap-highlight-color:transparent;
+    max-width:100%; overflow-wrap:break-word;
+  }
+  .chip:hover{filter:brightness(1.2);}
+  .chip:active{transform:scale(.96);}
+  .chip.over{background:rgba(122,136,184,.16); color:var(--slate); border-color:rgba(122,136,184,.35);}
+  .chip.spare{background:rgba(143,176,140,.16); color:var(--sage); border-color:rgba(143,176,140,.35);}
+  .chip.under{background:rgba(232,115,91,.16); color:var(--coral); border-color:rgba(232,115,91,.35);}
+  .chip.needmore{background:rgba(143,176,140,.16); color:var(--sage); border-color:rgba(143,176,140,.35);}
+  .chip .amt{font-family:'IBM Plex Mono',monospace; font-size:11px; opacity:.75;}
+  .chip.selected{outline:2px solid var(--gold); outline-offset:1px; transform:scale(1.04);}
+  .chip:disabled, .chip[data-disabled="1"]{opacity:.35; cursor:not-allowed; transform:none;}
+
+  .narrative{background:var(--bg-panel); border:1px solid var(--hair); border-radius:var(--radius); padding:22px 24px; margin:26px 0; line-height:1.7; font-size:15px;}
+  .narrative p{margin:0 0 12px;}
+  .narrative p:last-child{margin-bottom:0;}
+  .narrative strong{color:var(--gold); font-weight:600;}
+
+  .rank-list{margin:26px 0;}
+  .rank-card{
+    border-bottom:1px solid var(--hair); padding:13px 0; cursor:pointer; min-width:0;
+  }
+  .rank-card:hover{background:rgba(255,255,255,.03);}
+  .rank-card-row{display:flex; align-items:center; gap:8px; min-width:0;}
+  .rank-num{color:var(--text-dim); font-size:12px; flex:0 0 auto;}
+  .rank-name{font-size:14.5px; font-weight:500; flex:1 1 auto; min-width:0; overflow-wrap:break-word;}
+  .row-chevron{color:var(--text-dim); transition:transform .15s ease; flex:0 0 auto;}
+  .rank-card.open .row-chevron{transform:rotate(90deg); color:var(--gold);}
+  .rank-card-meta{color:var(--text-dim); font-size:12px; margin-top:4px; margin-left:24px; overflow-wrap:break-word;}
+  .rank-detail{padding:10px 0 4px 24px; color:var(--text-dim); font-size:13px; line-height:1.6; overflow-wrap:break-word;}
+  .rank-detail strong{color:var(--gold); font-weight:600;}
+  .tag{display:inline-block; padding:3px 9px; border-radius:20px; font-size:10.5px; font-family:'IBM Plex Mono', monospace; flex:0 0 auto; white-space:nowrap;}
+  .tag.under{background:rgba(232,115,91,.15); color:var(--coral);}
+  .tag.bal{background:rgba(143,176,140,.15); color:var(--sage);}
+  .tag.over{background:rgba(122,136,184,.15); color:var(--slate);}
+
+  footer.actions{display:flex; gap:14px; margin-top:12px; flex-wrap:wrap;}
+
+  @media print{
+    button, .nav-row, .stage-grid, #hero{display:none !important;}
+    body{background:#fff; color:#111;}
+    .domain-card, .diagram-wrap, .narrative, .budget-block{border-color:#ccc; background:#fafafa;}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <section class="screen active" id="hero">
+    <div class="eyebrow"><span class="dot"></span> Life Orbits — a priority instrument</div>
+    <h1>You can't max out everything.</h1>
+    <p class="sub">This version enforces that on purpose. You'll spread a fixed <strong>100 points</strong> across Self, Family, and Friends — then spread 100 more inside each circle. Raise one, and points come out of the others in real time, because that's the actual constraint you live under. Time &amp; energy questions are anchored to what "full effort" concretely looks like for that specific thing, since maxing out prayer isn't the same unit as maxing out a study schedule.</p>
+
+    <div class="orbit-preview">
+      <svg viewBox="0 0 200 140" width="220" height="154">
+        <circle cx="100" cy="70" r="24" fill="none" stroke="#d9a441" stroke-opacity=".55" stroke-width="1.4"/>
+        <circle cx="100" cy="70" r="46" fill="none" stroke="#c97b84" stroke-opacity=".45" stroke-width="1.4"/>
+        <circle cx="100" cy="70" r="66" fill="none" stroke="#6fa3a0" stroke-opacity=".4" stroke-width="1.4"/>
+        <circle cx="100" cy="70" r="5" fill="#d9a441"/>
+        <circle cx="124" cy="70" r="4" fill="#8fb08c"/>
+        <circle cx="76" cy="52" r="3.5" fill="#e8735b"/>
+        <circle cx="100" cy="16" r="4.5" fill="#e8735b"/>
+        <circle cx="60" cy="88" r="3" fill="#7a88b8"/>
+        <circle cx="150" cy="40" r="3.5" fill="#8fb08c"/>
+      </svg>
+    </div>
+
+    <div class="eyebrow" style="margin-bottom:10px;">Which season are you in right now?</div>
+    <div class="stage-grid" id="stageGrid"></div>
+
+    <p style="color:var(--text-dim); font-size:13px; margin-top:22px;">4 short screens, ~3 minutes — tap Begin below when you're ready.</p>
+  </section>
+
+  <section class="screen" id="circle-split"></section>
+  <section class="screen" id="q-self"></section>
+  <section class="screen" id="q-family"></section>
+  <section class="screen" id="q-friends"></section>
+
+  <section class="screen" id="result">
+    <div class="eyebrow"><span class="dot"></span> Your reading</div>
+    <h2 id="resultHeadline">Your life orbit</h2>
+    <p class="circle-desc" id="resultSub">Ring position = priority — your highest circle sits innermost. Node size = share of your total 100-point attention budget. Color = whether your actual time matches that share.</p>
+
+    <div class="diagram-wrap"><svg id="orbitSvg" viewBox="0 0 560 560" preserveAspectRatio="xMidYMid meet"></svg></div>
+
+    <div class="legend">
+      <span class="item"><span class="swatch" style="background:#e8735b;"></span>Underinvested</span>
+      <span class="item"><span class="swatch" style="background:#8fb08c;"></span>Balanced</span>
+      <span class="item"><span class="swatch" style="background:#7a88b8;"></span>Overinvested</span>
+    </div>
+    <div class="legend">
+      <span class="item"><span class="swatch ring" style="background:#d9a441;"></span>Self ring</span>
+      <span class="item"><span class="swatch ring" style="background:#c97b84;"></span>Family ring</span>
+      <span class="item"><span class="swatch ring" style="background:#6fa3a0;"></span>Friends ring</span>
+    </div>
+
+    <div class="narrative" id="narrative"></div>
+
+    <div class="rank-list" id="rankBody"></div>
+  </section>
+
+  <section class="screen" id="rebalance">
+    <div class="eyebrow"><span class="dot"></span> Quick rebalance</div>
+    <h2>Give and take</h2>
+    <p class="circle-desc">Tap an item on the left, then tap where it should go on the right — that shifts a point of effort from one to the other. Each side is ranked most to least.</p>
+
+    <div class="legend">
+      <span class="item"><span class="swatch" style="background:#e8735b;"></span>Underinvested</span>
+      <span class="item"><span class="swatch" style="background:#8fb08c;"></span>Balanced</span>
+      <span class="item"><span class="swatch" style="background:#7a88b8;"></span>Overinvested</span>
+    </div>
+
+    <div class="rebalance-panel" id="rebalancePanel">
+      <div class="rebalance-cols">
+        <div>
+          <div class="rebalance-col-label over" id="overColLabel">Give up effort</div>
+          <p class="rebalance-col-sub" id="overColSub"></p>
+          <div class="chip-list" id="overChips"></div>
+        </div>
+        <div>
+          <div class="rebalance-col-label under">Needs effort</div>
+          <p class="rebalance-col-sub" id="underColSub"></p>
+          <div class="chip-list" id="underChips"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="plan">
+    <div class="eyebrow"><span class="dot"></span> Plan of action</div>
+    <h2>What staying balanced looks like</h2>
+    <p class="circle-desc">A suggested cadence and a concrete habit for each area, based on how much attention it's earning and how your actual effort compares.</p>
+    <div id="planList"></div>
+  </section>
+
+  <section class="screen" id="setup">
+    <div class="eyebrow"><span class="dot"></span> Setup</div>
+    <h2>Set your own anchors</h2>
+    <p class="circle-desc">The default "full effort" description for each area is just a starting guess. Rewrite any of them to match what maxing out actually looks like for you — this updates the sliders and the suggestions on your results.</p>
+    <div id="anchorFields"></div>
+    <p class="save-anchors-status" id="anchorStatus"></p>
+  </section>
+
+</div>
+
+<div class="bottom-bar" id="bottomBar">
+  <button class="bar-icon-btn" id="barBackBtn" aria-label="Back">←</button>
+  <button class="bar-icon-btn" id="barSetupBtn" aria-label="Setup anchors">⚓</button>
+  <button class="bar-icon-btn" id="barMenuBtn" aria-label="Menu">☰</button>
+  <button class="primary bar-primary-btn" id="barPrimaryBtn">Begin</button>
+</div>
+<div class="menu-popover" id="menuPopover" style="display:none;"></div>
+<input type="file" id="loadFileInput" accept="application/json,.json" style="display:none;">
+<div class="save-modal" id="saveModal" style="display:none;"></div>
+
+<script>
+(function(){
+
+  window.addEventListener('error', function(e){ console.error('Life Orbits caught:', e.message); });
+  window.addEventListener('unhandledrejection', function(e){ console.error('Life Orbits caught rejection:', e.reason); });
+
+  const DOMAINS = [
+    {id:'health', circle:'self', label:'Health', desc:'Sleep, movement, nutrition, mental steadiness', lowA:'No real exercise or sleep routine', highA:'Consistent workouts, solid sleep, intentional eating', nudge:'Add one 20-minute walk this week, or move bedtime up by 30 minutes.', trim:'Skip one extra gym session this week and use the time elsewhere.'},
+    {id:'school', circle:'self', label:'School', desc:'Formal learning, training, certification', lowA:'Rarely opening the books outside class', highA:'3–4 focused hours most nights', nudge:'Block one extra 45-minute study session this week.', trim:'Cap tonight’s studying at what you already planned.'},
+    {id:'job', circle:'self', label:'Job', desc:'Career, craft, providing through work', lowA:'Doing the minimum to get by', highA:'Fully engaged, often going beyond what is asked', nudge:'Stay 20 minutes late once this week to finish something that’s been lingering.', trim:'Leave on time one day this week instead of staying late.'},
+    {id:'god', circle:'self', label:'God', desc:'Faith, prayer, spiritual grounding', lowA:'Rarely think about it day to day', highA:'Church every Sunday, prayer before bed', nudge:'Add five minutes of prayer before bed, or go to a weekday service once.', trim:'It’s fine to let one extra devotional or study session go this week.'},
+    {id:'partner', circle:'family', label:'Significant Other', desc:'Your romantic partnership', lowA:'Mostly texting, rarely seeing each other', highA:'Consistent quality time, fully present together', nudge:'Plan one uninterrupted hour together this week — phones away.', trim:'Let one optional date or errand together wait until next week.'},
+    {id:'immediate', circle:'family', label:'Immediate Family', desc:'Parents, siblings, spouse, kids under your roof, and close cousins', lowA:'A call or visit every few weeks', highA:'Frequently present — they can count on you', nudge:'Call or visit once more than you normally would this week.', trim:'It’s okay to let one non-urgent family task wait a week.'},
+    {id:'relatives', circle:'family', label:'Relatives', desc:'In-laws and the wider family tree beyond your closest cousins', lowA:'See them at holidays, if that', highA:'Actively staying in touch, showing up for milestones', nudge:'Send one text or make one call to a relative you haven’t reached out to in a while.', trim:'Skip one optional extended-family catch-up this week.'},
+    {id:'goodfriends', circle:'friends', label:'Good Friends', desc:'The few people who really know you', lowA:'Months between real conversations', highA:'Regular real conversations, there when it matters', nudge:'Reach out to one good friend and actually schedule time, not just a text.', trim:'It’s fine to let one hangout with a good friend wait a week.'},
+    {id:'acquaintances', circle:'friends', label:'Acquaintances', desc:'Colleagues, neighbors, the wider circle', lowA:'Barely interact outside required contact', highA:'Actively building the relationship over time', nudge:'Strike up one real conversation with someone you usually just nod at.', trim:'Skip one optional networking or small-talk opportunity this week.'},
+    {id:'hangout', circle:'friends', label:'Hangout Friends', desc:'People you do things with — activities, hobbies', lowA:'Rarely make time to just hang out', highA:'Weekly or more — a standing part of your routine', nudge:'Say yes to one casual hangout you’d normally skip.', trim:'Turn down one optional hangout this week to protect your time elsewhere.'}
+  ];
+
+  const CIRCLES = {
+    self:    {label:'Self',    order:0, radius:78,  color:'#d9a441', desc:'What holds you up so you have something to give.'},
+    family:  {label:'Family',  order:1, radius:150, color:'#c97b84', desc:'The people bound to you by blood or commitment.'},
+    friends: {label:'Friends', order:2, radius:222, color:'#6fa3a0', desc:'The people you choose, and who choose you back.'}
+  };
+
+  const STEP_ORDER = ['circle-split','q-self','q-family','q-friends'];
+
+  const STAGES = [
+    {id:'student', title:'Student', blurb:'Single, still building',
+      circle:{self:50,family:25,friends:25},
+      self:{health:20,school:45,job:15,god:20}, family:{partner:35,immediate:45,relatives:20}, friends:{goodfriends:45,acquaintances:20,hangout:35}},
+    {id:'early', title:'Early Career', blurb:'Single, first years of work',
+      circle:{self:45,family:30,friends:25},
+      self:{health:25,school:15,job:40,god:20}, family:{partner:40,immediate:40,relatives:20}, friends:{goodfriends:45,acquaintances:25,hangout:30}},
+    {id:'dating', title:'Building a Relationship', blurb:'Dating or newly committed',
+      circle:{self:35,family:45,friends:20},
+      self:{health:25,school:10,job:35,god:30}, family:{partner:55,immediate:30,relatives:15}, friends:{goodfriends:50,acquaintances:20,hangout:30}},
+    {id:'young-family', title:'Young Family', blurb:'Married and/or raising kids',
+      circle:{self:25,family:60,friends:15},
+      self:{health:30,school:5,job:35,god:30}, family:{partner:35,immediate:50,relatives:15}, friends:{goodfriends:55,acquaintances:15,hangout:30}},
+    {id:'established', title:'Established', blurb:'Career and family both running',
+      circle:{self:30,family:50,friends:20},
+      self:{health:30,school:5,job:35,god:30}, family:{partner:35,immediate:45,relatives:20}, friends:{goodfriends:55,acquaintances:15,hangout:30}},
+    {id:'later', title:'Later Season', blurb:'Empty nest or retirement',
+      circle:{self:35,family:40,friends:25},
+      self:{health:35,school:5,job:15,god:45}, family:{partner:35,immediate:35,relatives:30}, friends:{goodfriends:55,acquaintances:15,hangout:30}}
+  ];
+
+  let currentStage = null;
+  const screens = ['hero','circle-split','q-self','q-family','q-friends','result','rebalance','setup','plan'];
+  let screenIndex = 0;
+
+  // ---------- generic linked budget group ----------
+  function createBudgetGroup(container, items, initialValues, color){
+    const total = 100, minPer = 1;
+    let values = {...initialValues};
+    const maxAllowed = total - minPer*(items.length-1);
+
+    const bar = document.createElement('div');
+    bar.className = 'budget-bar';
+    items.forEach(it=>{
+      const seg = document.createElement('div');
+      seg.className = 'budget-seg';
+      seg.style.background = color;
+      seg.style.opacity = 0.55 + (0.45 * (items.indexOf(it)/items.length));
+      seg.id = 'seg-'+it.id;
+      bar.appendChild(seg);
+    });
+    container.appendChild(bar);
+
+    items.forEach(it=>{
+      const row = document.createElement('div');
+      row.className = 'budget-row';
+      row.innerHTML = `
+        <div class="budget-row-top">
+          <span class="budget-row-label">${it.label}</span>
+          <span class="budget-row-val mono" id="bval-${it.id}">0%</span>
+        </div>
+        <input type="range" min="${minPer}" max="${maxAllowed}" value="${minPer}" id="brange-${it.id}">
+      `;
+      container.appendChild(row);
+    });
+
+    function syncDOM(){
+      items.forEach(it=>{
+        const v = values[it.id];
+        document.getElementById('bval-'+it.id).textContent = v+'%';
+        const inp = document.getElementById('brange-'+it.id);
+        inp.value = v;
+        const pct = ((v-minPer)/(maxAllowed-minPer))*100;
+        inp.style.background = `linear-gradient(90deg, ${color} ${pct}%, #232752 ${pct}%)`;
+        document.getElementById('seg-'+it.id).style.width = v+'%';
+      });
+    }
+
+    function rebalance(changedId, newVal){
+      const ids = items.map(i=>i.id);
+      const others = ids.filter(id=>id!==changedId);
+      newVal = Math.max(minPer, Math.min(newVal, maxAllowed));
+      const remaining = total - newVal;
+      const othersSum = others.reduce((s,id)=>s+values[id],0) || others.length;
+      let allocated = 0;
+      others.forEach((id,idx)=>{
+        if(idx === others.length-1){
+          values[id] = remaining - allocated;
+        } else {
+          let share = Math.round((values[id]/othersSum)*remaining);
+          share = Math.max(minPer, share);
+          values[id] = share;
+          allocated += share;
+        }
+      });
+      values[changedId] = newVal;
+    }
+
+    items.forEach(it=>{
+      document.getElementById('brange-'+it.id).addEventListener('input', (e)=>{
+        rebalance(it.id, parseInt(e.target.value,10));
+        syncDOM();
+      });
+    });
+
+    syncDOM();
+    return {
+      getValues: ()=>({...values}),
+      setValues: (nv)=>{ values = {...nv}; syncDOM(); }
+    };
+  }
+
+  let circleBudget, domainBudgets = {};
+  let selectedTransfer = null; // {id, circle}
+  let lastScores = null;
+
+  // ---------- stage buttons ----------
+  const stageGrid = document.getElementById('stageGrid');
+  STAGES.forEach(s=>{
+    const b = document.createElement('button');
+    b.className = 'stage-btn';
+    b.innerHTML = `<strong>${s.title}</strong>${s.blurb}`;
+    b.addEventListener('click', ()=>{
+      document.querySelectorAll('.stage-btn').forEach(x=>x.classList.remove('selected'));
+      b.classList.add('selected');
+      currentStage = s;
+      if(circleBudget) circleBudget.setValues(s.circle);
+      if(domainBudgets.self) domainBudgets.self.setValues(s.self);
+      if(domainBudgets.family) domainBudgets.family.setValues(s.family);
+      if(domainBudgets.friends) domainBudgets.friends.setValues(s.friends);
+    });
+    stageGrid.appendChild(b);
+  });
+
+  // ---------- circle-split screen ----------
+  function buildCircleSplitScreen(){
+    const container = document.getElementById('circle-split');
+    container.innerHTML = `
+      <div class="step-tag mono">STEP 1 OF 4</div>
+      <div class="progress">${STEP_ORDER.map((s,i)=>`<span class="${i<0?'done':(i===0?'current':'')}"></span>`).join('')}</div>
+      <h2>Split 100 points across the three circles</h2>
+      <p class="circle-desc">This is the whole pie — everything you are and do fits inside these 100 points. Give more to one circle and it comes from the other two. Watch the bar: it never grows past 100.</p>
+      <div class="budget-block" id="circleBudgetBlock">
+        <div class="budget-head"><span class="ttl mono">Attention budget</span><span class="budget-total mono">Always = 100%</span></div>
+      </div>
+    `;
+    const items = [
+      {id:'self', label:'Self'},
+      {id:'family', label:'Family'},
+      {id:'friends', label:'Friends'}
+    ];
+    circleBudget = createBudgetGroup(document.getElementById('circleBudgetBlock'), items, {self:34,family:33,friends:33}, '#d9a441');
+    // recolor segs individually per circle
+    ['self','family','friends'].forEach(id=>{
+      const seg = document.getElementById('seg-'+id);
+      if(seg){ seg.style.background = CIRCLES[id].color; seg.style.opacity = 1; }
+    });
+  }
+
+  // ---------- circle question screens ----------
+  function buildCircleScreen(circleKey){
+    const container = document.getElementById('q-'+circleKey);
+    const meta = CIRCLES[circleKey];
+    const items = DOMAINS.filter(d=>d.circle===circleKey);
+    const stepIdx = STEP_ORDER.indexOf('q-'+circleKey);
+
+    let html = `
+      <div class="step-tag mono">STEP ${stepIdx+1} OF 4</div>
+      <div class="progress">${STEP_ORDER.map((s,i)=>`<span class="${i<stepIdx?'done':(i===stepIdx?'current':'')}"></span>`).join('')}</div>
+      <h2>${meta.label}</h2>
+      <p class="circle-desc">${meta.desc}</p>
+      <div class="budget-block" id="budget-${circleKey}">
+        <div class="budget-head"><span class="ttl mono">Split 100 points inside ${meta.label}</span><span class="budget-total mono">Always = 100%</span></div>
+      </div>
+    `;
+    items.forEach(d=>{
+      html += `
+        <div class="domain-card">
+          <h3>${d.label}</h3>
+          <div class="desc">${d.desc}</div>
+          <div class="slider-label"><span>Time &amp; energy it's actually getting</span><span class="val mono" id="${d.id}-inv-val">50</span></div>
+          <input type="range" min="1" max="100" value="50" id="${d.id}-inv">
+          <div class="scale-ends"><span id="${d.id}-lowA-label">Low: ${escapeHtml(d.lowA)}</span><span class="r" id="${d.id}-highA-label">Full: ${escapeHtml(d.highA)}</span></div>
+        </div>
+      `;
+    });
+    const isLast = circleKey === 'friends';
+    container.innerHTML = html;
+
+    const defaultEven = {};
+    const evenShare = Math.floor(100/items.length);
+    items.forEach((d,i)=> defaultEven[d.id] = (i===items.length-1) ? (100-evenShare*(items.length-1)) : evenShare);
+    domainBudgets[circleKey] = createBudgetGroup(document.getElementById('budget-'+circleKey), items.map(d=>({id:d.id,label:d.label})), defaultEven, meta.color);
+
+    container.querySelectorAll('input[type=range]').forEach(inp=>{
+      if(!inp.id.endsWith('-inv')) return;
+      inp.addEventListener('input', ()=>{
+        document.getElementById(inp.id+'-val').textContent = inp.value;
+        paintInvSlider(inp);
+      });
+      paintInvSlider(inp);
+    });
+  }
+
+  function paintInvSlider(inp){
+    const min = parseInt(inp.min,10), max = parseInt(inp.max,10);
+    const pct = ((inp.value-min)/(max-min))*100;
+    inp.style.background = `linear-gradient(90deg, #d9a441 ${pct}%, #232752 ${pct}%)`;
+  }
+
+  function escapeHtml(str){
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  function buildSetupScreen(){
+    const container = document.getElementById('anchorFields');
+    container.innerHTML = DOMAINS.map(d=>`
+      <div class="anchor-field">
+        <label for="anchor-${d.id}"><strong>${d.label}</strong>What does full effort look like here?</label>
+        <input type="text" id="anchor-${d.id}" value="${escapeHtml(d.highA)}">
+      </div>
+    `).join('');
+  }
+
+  buildCircleSplitScreen();
+  ['self','family','friends'].forEach(buildCircleScreen);
+  buildSetupScreen();
+
+  function goTo(idx){
+    screenIndex = idx;
+    screens.forEach((id,i)=> document.getElementById(id).classList.toggle('active', i===idx));
+    window.scrollTo({top:0, behavior:'smooth'});
+    updateBottomBar(screens[idx]);
+  }
+
+  const BAR_CONFIG = {
+    hero: {back:null, primaryLabel:'Begin', primaryAction:()=> goTo(screens.indexOf('circle-split'))},
+    'circle-split': {back:'hero', primaryLabel:'Next', primaryAction:()=> goTo(screens.indexOf('q-self'))},
+    'q-self': {back:'circle-split', primaryLabel:'Next', primaryAction:()=> goTo(screens.indexOf('q-family'))},
+    'q-family': {back:'q-self', primaryLabel:'Next', primaryAction:()=> goTo(screens.indexOf('q-friends'))},
+    'q-friends': {back:'q-family', primaryLabel:'Reveal my priorities', primaryAction:()=>{ renderResult(); goTo(screens.indexOf('result')); }},
+    result: {back:null, primaryLabel:'Rebalance \u2192', primaryAction:()=> goTo(screens.indexOf('rebalance'))},
+    rebalance: {back:'result', primaryLabel:'Done', primaryAction:()=> goTo(screens.indexOf('result'))},
+    setup: {back:'hero', primaryLabel:'Save anchors', primaryAction:()=> saveAnchors()},
+    plan: {back:'result', primaryLabel:'Done', primaryAction:()=> goTo(screens.indexOf('result'))}
+  };
+
+  function updateBottomBar(screenId){
+    const cfg = BAR_CONFIG[screenId];
+    if(!cfg) return;
+    const backBtn = document.getElementById('barBackBtn');
+    const primaryBtn = document.getElementById('barPrimaryBtn');
+    backBtn.disabled = !cfg.back;
+    primaryBtn.textContent = cfg.primaryLabel;
+    primaryBtn.onclick = cfg.primaryAction;
+    backBtn.onclick = cfg.back ? (()=> goTo(screens.indexOf(cfg.back))) : null;
+    document.getElementById('menuPopover').style.display = 'none';
+  }
+
+  document.getElementById('barSetupBtn').addEventListener('click', ()=> goTo(screens.indexOf('setup')));
+  document.getElementById('barMenuBtn').addEventListener('click', toggleMenu);
+
+  function showToast(msg){
+    let toast = document.getElementById('toastMsg');
+    if(!toast){
+      toast = document.createElement('div');
+      toast.id = 'toastMsg';
+      toast.className = 'toast-msg';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(()=> toast.classList.remove('show'), 1800);
+  }
+
+  function buildMenuItems(screenId){
+    const items = [
+      {label:'Reprioritize', children: [
+        {label:'Circles', action: ()=> goTo(screens.indexOf('circle-split'))},
+        {label:'Self', action: ()=> goTo(screens.indexOf('q-self'))},
+        {label:'Family', action: ()=> goTo(screens.indexOf('q-family'))},
+        {label:'Friends', action: ()=> goTo(screens.indexOf('q-friends'))}
+      ]},
+      {label:'Save', action: ()=> saveState()},
+      {label:'Load', action: ()=> document.getElementById('loadFileInput').click()}
+    ];
+    if(screenId === 'hero' && pendingResumeState){
+      items.push({label:'Resume your saved priorities', action: ()=> applyResumeState(pendingResumeState)});
+    }
+    if(screenId === 'result'){
+      items.push({label:'See your Plan of Action', action: ()=> goTo(screens.indexOf('plan'))});
+      items.push({label:'Print this reading', action: ()=> window.print()});
+      items.push({label:'Start over', action: ()=> location.reload()});
+    }
+    return items;
+  }
+
+  function toggleMenu(){
+    const pop = document.getElementById('menuPopover');
+    const isOpen = pop.style.display !== 'none';
+    if(isOpen){ pop.style.display = 'none'; return; }
+    const items = buildMenuItems(screens[screenIndex]);
+    pop.innerHTML = items.map((it,i)=>{
+      if(it.children){
+        return `<div class="menu-group">
+          <button type="button" class="menu-item menu-group-toggle" data-group="${i}">${escapeHtml(it.label)}<span class="menu-chevron">\u203a</span></button>
+          <div class="menu-submenu" id="menu-sub-${i}" style="display:none;">
+            ${it.children.map((c,j)=>`<button type="button" class="menu-item menu-subitem" data-group="${i}" data-sub="${j}">${escapeHtml(c.label)}</button>`).join('')}
+          </div>
+        </div>`;
+      }
+      return `<button type="button" class="menu-item" data-idx="${i}">${escapeHtml(it.label)}</button>`;
+    }).join('');
+
+    pop.querySelectorAll('.menu-item[data-idx]').forEach(btn=>{
+      const i = parseInt(btn.dataset.idx,10);
+      btn.addEventListener('click', ()=>{
+        pop.style.display = 'none';
+        items[i].action();
+      });
+    });
+    pop.querySelectorAll('.menu-group-toggle').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const g = btn.dataset.group;
+        const sub = document.getElementById('menu-sub-'+g);
+        const willOpen = sub.style.display === 'none';
+        pop.querySelectorAll('.menu-submenu').forEach(s=> s.style.display = 'none');
+        pop.querySelectorAll('.menu-group-toggle').forEach(b=> b.classList.remove('open'));
+        if(willOpen){ sub.style.display = 'block'; btn.classList.add('open'); }
+      });
+    });
+    pop.querySelectorAll('.menu-subitem').forEach(btn=>{
+      const i = parseInt(btn.dataset.group,10), j = parseInt(btn.dataset.sub,10);
+      btn.addEventListener('click', ()=>{
+        pop.style.display = 'none';
+        items[i].children[j].action();
+      });
+    });
+
+    pop.style.display = 'block';
+  }
+
+  const STORAGE_KEY = 'life-orbits-state';
+  let pendingResumeState = null;
+
+  function buildStateObject(){
+    const state = {
+      stage: currentStage ? currentStage.id : null,
+      circle: circleBudget.getValues(),
+      domains: {
+        self: domainBudgets.self.getValues(),
+        family: domainBudgets.family.getValues(),
+        friends: domainBudgets.friends.getValues()
+      },
+      inv: {},
+      anchors: {}
+    };
+    DOMAINS.forEach(d=> state.inv[d.id] = parseInt(document.getElementById(d.id+'-inv').value,10));
+    DOMAINS.forEach(d=> state.anchors[d.id] = d.highA);
+    return state;
+  }
+
+  async function saveState(){
+    const state = buildStateObject();
+    try{
+      if(window.storage) await window.storage.set(STORAGE_KEY, JSON.stringify(state), false);
+    }catch(err){
+      // silent bonus attempt only
+    }
+    const json = JSON.stringify(state, null, 2);
+    const FILENAME = 'orbitlife.json';
+
+    try{
+      if(navigator.share && navigator.canShare){
+        const file = new File([json], FILENAME, {type:'application/json'});
+        if(navigator.canShare({files:[file]})){
+          await navigator.share({files:[file], title:'Life Orbits save file'});
+          showToast('Saved \u2713');
+          return;
+        }
+      }
+    }catch(err){
+      if(err && err.name === 'AbortError') return; // user cancelled the share sheet — not an error
+      // otherwise fall through to the guaranteed text fallback below
+    }
+
+    showSaveTextFallback(json);
+  }
+
+  function showSaveTextFallback(json){
+    const modal = document.getElementById('saveModal');
+    modal.innerHTML = `
+      <div class="save-modal-inner">
+        <div class="save-modal-head">Save your priorities</div>
+        <p class="save-modal-sub">This device won't hand the file off directly. Select all the text below, copy it, and paste it into a Note or file of your own — you can load it back in later the same way.</p>
+        <textarea class="save-code-area" id="saveTextArea" readonly>${escapeHtml(json)}</textarea>
+        <div class="save-modal-actions">
+          <button type="button" class="primary" id="copySaveTextBtn">Select all</button>
+          <button type="button" class="ghost" id="closeSaveModalBtn">Close</button>
+        </div>
+      </div>
+    `;
+    modal.style.display = 'flex';
+    const area = document.getElementById('saveTextArea');
+    document.getElementById('copySaveTextBtn').addEventListener('click', async ()=>{
+      area.focus();
+      area.select();
+      area.setSelectionRange(0, area.value.length);
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          await navigator.clipboard.writeText(json);
+          showToast('Copied \u2713');
+        } else {
+          document.execCommand('copy');
+          showToast('Copied \u2713');
+        }
+      }catch(err){
+        showToast('Text selected \u2014 use your keyboard\u2019s copy option');
+      }
+    });
+    document.getElementById('closeSaveModalBtn').addEventListener('click', ()=>{
+      modal.style.display = 'none';
+    });
+  }
+
+  function loadStateFromFile(file){
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      try{
+        const state = JSON.parse(reader.result);
+        applyResumeState(state);
+        showToast('Loaded \u2713');
+      }catch(err){
+        showToast('Couldn\u2019t read that file');
+      }
+    };
+    reader.onerror = ()=> showToast('Couldn\u2019t read that file');
+    reader.readAsText(file);
+  }
+
+  document.getElementById('loadFileInput').addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    e.target.value = '';
+    if(file) loadStateFromFile(file);
+  });
+
+  async function tryLoadSavedState(){
+    try{
+      if(!window.storage) return;
+      const result = await window.storage.get(STORAGE_KEY, false);
+      if(result && result.value){
+        pendingResumeState = JSON.parse(result.value);
+      }
+    }catch(err){
+      // nothing saved yet
+    }
+  }
+
+  function applyResumeState(state){
+    if(state.stage){
+      const stageObj = STAGES.find(s=>s.id===state.stage);
+      if(stageObj){
+        currentStage = stageObj;
+        document.querySelectorAll('.stage-btn').forEach(b=>{
+          const t = b.querySelector('strong');
+          if(t && t.textContent === stageObj.title) b.classList.add('selected');
+        });
+      }
+    }
+    circleBudget.setValues(state.circle);
+    domainBudgets.self.setValues(state.domains.self);
+    domainBudgets.family.setValues(state.domains.family);
+    domainBudgets.friends.setValues(state.domains.friends);
+    DOMAINS.forEach(d=>{
+      const v = state.inv[d.id];
+      if(v!=null){
+        const el = document.getElementById(d.id+'-inv');
+        el.value = v;
+        document.getElementById(d.id+'-inv-val').textContent = v;
+        paintInvSlider(el);
+      }
+    });
+    if(state.anchors){
+      DOMAINS.forEach(d=>{
+        const a = state.anchors[d.id];
+        if(a){
+          d.highA = a;
+          const label = document.getElementById(d.id+'-highA-label');
+          if(label) label.textContent = 'Full: ' + a;
+          const input = document.getElementById('anchor-'+d.id);
+          if(input) input.value = a;
+        }
+      });
+    }
+    renderResult();
+    goTo(screens.indexOf('result'));
+  }
+
+  tryLoadSavedState();
+
+  // ---------- Custom effort anchors ----------
+  const ANCHORS_KEY = 'life-orbits-anchors';
+
+  async function saveAnchors(){
+    const status = document.getElementById('anchorStatus');
+    const overrides = {};
+    DOMAINS.forEach(d=>{
+      const inp = document.getElementById('anchor-'+d.id);
+      if(!inp) return;
+      const val = inp.value.trim();
+      if(val){
+        d.highA = val;
+        overrides[d.id] = val;
+        const label = document.getElementById(d.id+'-highA-label');
+        if(label) label.textContent = 'Full: ' + val;
+      }
+    });
+    try{
+      if(!window.storage) throw new Error('storage unavailable');
+      await window.storage.set(ANCHORS_KEY, JSON.stringify(overrides), false);
+      status.textContent = 'Saved \u2713 — your sliders and suggestions now use these.';
+    }catch(err){
+      status.textContent = 'Applied for this session (could not save for next time).';
+    }
+    setTimeout(()=>{ status.textContent = ''; }, 3000);
+  }
+
+  async function tryLoadAnchors(){
+    try{
+      if(!window.storage) return;
+      const result = await window.storage.get(ANCHORS_KEY, false);
+      if(result && result.value){
+        const overrides = JSON.parse(result.value);
+        Object.keys(overrides).forEach(id=>{
+          const d = DOMAINS.find(x=>x.id===id);
+          if(!d) return;
+          d.highA = overrides[id];
+          const label = document.getElementById(id+'-highA-label');
+          if(label) label.textContent = 'Full: ' + d.highA;
+          const inp = document.getElementById('anchor-'+id);
+          if(inp) inp.value = d.highA;
+        });
+      }
+    }catch(err){
+      // nothing saved yet
+    }
+  }
+
+  tryLoadAnchors();
+  updateBottomBar('hero');
+
+  const INV_MIN = 1, INV_MAX = 100, TRANSFER_STEP = 10;
+
+  function gapCategory(gap){
+    if(gap>=4) return {key:'under', label:'Underinvested', color:'#e8735b'};
+    if(gap<=-4) return {key:'over', label:'Overinvested', color:'#7a88b8'};
+    return {key:'bal', label:'Balanced', color:'#8fb08c'};
+  }
+
+  function actionSuggestion(d, cat){
+    const shareStr = d.share.toFixed(1)+'%';
+    const investStr = d.invShare.toFixed(1)+'%';
+    const gapStr = Math.abs(d.gap).toFixed(1);
+
+    if(cat.key === 'under'){
+      return `<strong>Underinvested by ${gapStr} points:</strong> this deserves about ${shareStr} of your attention but is only getting an estimated ${investStr} of your actual effort. To close the gap: ${escapeHtml(d.nudge)} Full effort here means: ${escapeHtml(d.highA)}.`;
+    }
+    if(cat.key === 'over'){
+      return `<strong>Overinvested by ${gapStr} points:</strong> this is pulling about ${investStr} of your actual effort but only deserves ${shareStr} of your attention. To ease back: ${escapeHtml(d.trim)} A lighter touch here means: ${escapeHtml(d.lowA)}.`;
+    }
+    return `<strong>Balanced:</strong> deserves about ${shareStr} of your attention and is getting roughly ${investStr} of your actual effort \u2014 close enough that nothing needs to change. Full effort here means: ${escapeHtml(d.highA)}.`;
+  }
+
+  const CADENCE_BANDS = ['A few times a month', 'Weekly', 'A few times a week', 'Daily'];
+
+  function cadenceFor(share){
+    if(share >= 15) return CADENCE_BANDS[3];
+    if(share >= 8) return CADENCE_BANDS[2];
+    if(share >= 4) return CADENCE_BANDS[1];
+    return CADENCE_BANDS[0];
+  }
+
+  function cadenceDown(cadence){
+    const idx = CADENCE_BANDS.indexOf(cadence);
+    return CADENCE_BANDS[Math.max(0, idx-1)];
+  }
+
+  function planLineHTML(d, cat){
+    const cadence = cadenceFor(d.share);
+    let verb, action;
+    if(cat.key === 'under'){
+      verb = cadence;
+      action = d.highA;
+    } else if(cat.key === 'over'){
+      verb = 'No more than ' + cadenceDown(cadence).toLowerCase();
+      action = d.lowA;
+    } else {
+      verb = cadence;
+      action = d.highA;
+    }
+    return `<div class="plan-card">
+      <div class="plan-card-head"><span class="plan-domain">${escapeHtml(d.label)}</span><span class="plan-cadence">${escapeHtml(verb)}</span></div>
+      <p class="plan-action">${escapeHtml(action)}</p>
+    </div>`;
+  }
+
+  function renderPlan(scores){
+    const list = document.getElementById('planList');
+    if(!list) return;
+    const sorted = [...scores].sort((a,b)=>b.share-a.share);
+    list.innerHTML = sorted.map(d=>{
+      const cat = gapCategory(d.gap);
+      return planLineHTML(d, cat);
+    }).join('');
+  }
+
+  function renderRebalancePanel(scores){
+    const trueOver = scores.filter(d=>d.gap<=-4).sort((a,b)=>a.gap-b.gap);
+    const trueUnder = scores.filter(d=>d.gap>=4).sort((a,b)=>b.gap-a.gap);
+    const balancedSpare = scores.filter(d=>d.gap>-4 && d.gap<4 && d.inv>INV_MIN).sort((a,b)=>a.gap-b.gap);
+    const balancedNeed = scores.filter(d=>d.gap>-4 && d.gap<4 && d.inv<INV_MAX).sort((a,b)=>b.gap-a.gap);
+
+    const overEl = document.getElementById('overChips');
+    const underEl = document.getElementById('underChips');
+    const overSubEl = document.getElementById('overColSub');
+    const underSubEl = document.getElementById('underColSub');
+
+    let sourceList, sourceKind;
+    if(trueOver.length){
+      sourceList = trueOver; sourceKind = 'over';
+      overSubEl.textContent = 'Ranked most to least overinvested.';
+    } else if(balancedSpare.length && trueUnder.length){
+      sourceList = balancedSpare; sourceKind = 'spare';
+      overSubEl.textContent = "Nothing's overinvested anymore — ranked most to least spare.";
+    } else {
+      sourceList = []; sourceKind = 'over';
+      overSubEl.textContent = '';
+    }
+
+    let targetList, targetKind;
+    if(trueUnder.length){
+      targetList = trueUnder; targetKind = 'under';
+      underSubEl.textContent = 'Ranked most to least underinvested.';
+    } else if(balancedNeed.length && trueOver.length){
+      targetList = balancedNeed; targetKind = 'needmore';
+      underSubEl.textContent = "Nothing's underinvested anymore — these balanced items have the most room to take on more, ranked closest to least.";
+    } else {
+      targetList = []; targetKind = 'under';
+      underSubEl.textContent = '';
+    }
+
+    function chipHTML(d, kind){
+      const disabled = (kind==='under' || kind==='needmore') ? d.inv>=INV_MAX : d.inv<=INV_MIN;
+      return `<button type="button" class="chip ${kind}" data-id="${d.id}" data-kind="${kind}" data-disabled="${disabled?1:0}">
+        ${d.label} <span class="amt">${d.inv}/100</span>
+      </button>`;
+    }
+
+    overEl.innerHTML = sourceList.length ? sourceList.map(d=>chipHTML(d,sourceKind)).join('')
+      : (targetList.length ? '<span class="chip-empty">Nothing left with slack to give — everything remaining is at its floor.</span>' : '<span class="chip-empty">Nothing overinvested right now.</span>');
+    underEl.innerHTML = targetList.length ? targetList.map(d=>chipHTML(d,targetKind)).join('')
+      : (sourceList.length ? '<span class="chip-empty">Nothing left with room to take on more — everything remaining is already maxed out.</span>' : '<span class="chip-empty">Nothing underinvested right now.</span>');
+
+    if(selectedTransfer && !sourceList.some(d=>d.id===selectedTransfer.id)) selectedTransfer = null;
+
+    document.querySelectorAll('.chip[data-kind="under"], .chip[data-kind="needmore"]').forEach(chip=>{
+      if(chip.dataset.disabled === '1') return;
+      chip.addEventListener('click', ()=>{
+        if(selectedTransfer){
+          transferPoint(selectedTransfer.id, chip.dataset.id);
+          selectedTransfer = null;
+        }
+      });
+    });
+
+    document.querySelectorAll('.chip[data-kind="over"], .chip[data-kind="spare"]').forEach(chip=>{
+      if(chip.dataset.disabled === '1') return;
+      chip.addEventListener('click', ()=> handleSourceTap(chip));
+    });
+  }
+
+  function handleSourceTap(chip){
+    const id = chip.dataset.id;
+    document.querySelectorAll('.chip.over, .chip.spare').forEach(c=>c.classList.remove('selected'));
+    if(selectedTransfer && selectedTransfer.id === id){
+      selectedTransfer = null;
+    } else {
+      selectedTransfer = {id};
+      chip.classList.add('selected');
+    }
+  }
+
+  function transferPoint(fromId, toId){
+    const fromEl = document.getElementById(fromId+'-inv');
+    const toEl = document.getElementById(toId+'-inv');
+    if(!fromEl || !toEl) return;
+    let fromVal = parseInt(fromEl.value,10), toVal = parseInt(toEl.value,10);
+    const amount = Math.min(TRANSFER_STEP, fromVal-INV_MIN, INV_MAX-toVal);
+    if(amount<=0) return;
+    fromEl.value = fromVal-amount;
+    toEl.value = toVal+amount;
+    document.getElementById(fromId+'-inv-val').textContent = fromEl.value;
+    document.getElementById(toId+'-inv-val').textContent = toEl.value;
+    paintInvSlider(fromEl);
+    paintInvSlider(toEl);
+    renderResult();
+  }
+
+  function renderResult(){
+    const circleVals = circleBudget.getValues();
+    const scores = DOMAINS.map(d=>{
+      const withinCircle = domainBudgets[d.circle].getValues()[d.id];
+      const share = (circleVals[d.circle]/100) * (withinCircle/100) * 100;
+      const inv = parseInt(document.getElementById(d.id+'-inv').value,10);
+      return {...d, withinCircle, share, inv};
+    });
+    const invSum = scores.reduce((s,d)=>s+d.inv,0);
+    scores.forEach(d=> d.invShare = (d.inv/invSum)*100);
+    scores.forEach(d=> d.gap = d.share - d.invShare);
+    lastScores = scores;
+    renderRebalancePanel(scores);
+    renderPlan(scores);
+
+    const byCircle = {self:[], family:[], friends:[]};
+    scores.forEach(s=>byCircle[s.circle].push(s));
+
+    const svg = document.getElementById('orbitSvg');
+    svg.innerHTML = '';
+    const NS = 'http://www.w3.org/2000/svg';
+    const cx = 280, cy = 280;
+    function el(tag, attrs){
+      const e = document.createElementNS(NS, tag);
+      Object.keys(attrs).forEach(k=>e.setAttribute(k, attrs[k]));
+      return e;
+    }
+
+    svg.appendChild(el('circle',{cx,cy,r:10,fill:'#d9a441'}));
+    svg.appendChild(el('circle',{cx,cy,r:16,fill:'none',stroke:'#d9a441','stroke-opacity':.4,'stroke-width':1}));
+
+    let delay = 0;
+    const RING_RADII = [78, 150, 222];
+    const outerR = RING_RADII[RING_RADII.length-1];
+    const rectLeft = cx - 0.10*outerR;
+    const rectRight = cx + 0.10*outerR;
+    const rectTop = cy - outerR;
+    const rectBottom = cy;
+
+    function hashStr(s){
+      let h = 0;
+      for(let i=0;i<s.length;i++){ h = (h*31 + s.charCodeAt(i)) | 0; }
+      return h >>> 0;
+    }
+    function seededRandom(seed){
+      let state = seed >>> 0;
+      return function(){
+        state = (state*1664525 + 1013904223) >>> 0;
+        return state / 4294967296;
+      };
+    }
+    function angularDist(a,b){
+      const d = Math.abs(a-b) % (Math.PI*2);
+      return d > Math.PI ? Math.PI*2-d : d;
+    }
+
+    const rankedCircles = Object.keys(CIRCLES).sort((a,b)=> circleVals[b]-circleVals[a]);
+    rankedCircles.forEach((cKey, rank)=>{
+      const meta = CIRCLES[cKey];
+      const r = RING_RADII[rank];
+      const share = circleVals[cKey];
+      const strokeW = 1 + (share/100)*5;
+      const strokeOp = 0.35 + (share/100)*0.5;
+      svg.appendChild(el('circle',{cx,cy,r, fill:'none', stroke:meta.color,'stroke-opacity':strokeOp.toFixed(2),'stroke-width':strokeW.toFixed(1)}));
+
+      const labelEl = el('text',{x:cx, y:cy-r-10, 'text-anchor':'middle', class:'ring-label', fill:meta.color});
+      labelEl.textContent = meta.label + '  ·  ' + share + '%';
+      svg.appendChild(labelEl);
+
+      const items = byCircle[cKey];
+      const n = items.length;
+      const MIN_SEP = 25 * Math.PI/180;
+      const usedAngles = [];
+      items.forEach((d,i)=>{
+        const rng = seededRandom(hashStr(d.id + '|' + r));
+        let angle, x, y, attempts = 0;
+        do{
+          angle = rng() * Math.PI*2;
+          x = cx + r*Math.cos(angle);
+          y = cy + r*Math.sin(angle);
+          attempts++;
+        } while(attempts < 80 && (
+          (x>=rectLeft && x<=rectRight && y>=rectTop && y<=rectBottom) ||
+          usedAngles.some(a=> angularDist(a, angle) < MIN_SEP)
+        ));
+        usedAngles.push(angle);
+
+        const nodeR = 8 + (Math.min(d.share,40)/40)*20;
+        const cat = gapCategory(d.gap);
+
+        const g = el('g',{class:'node-group', style:`animation-delay:${delay}ms; transform-origin:${x}px ${y}px;`});
+        delay += 90;
+        g.appendChild(el('circle',{cx:x,cy:y,r:nodeR, fill:cat.color, 'fill-opacity':0.88, stroke:'#12142a','stroke-width':2}));
+        const lbl = el('text',{x, y: y+nodeR+13, 'text-anchor':'middle', class:'node-label'});
+        lbl.textContent = d.label;
+        g.appendChild(lbl);
+        const sc = el('text',{x, y: y+nodeR+25, 'text-anchor':'middle', class:'node-score'});
+        sc.textContent = d.share.toFixed(1)+'%';
+        g.appendChild(sc);
+        svg.appendChild(g);
+      });
+    });
+
+    const topCircleKey = Object.keys(circleVals).sort((a,b)=>circleVals[b]-circleVals[a])[0];
+    document.getElementById('resultHeadline').textContent =
+      `Right now, ${CIRCLES[topCircleKey].label} has the most gravity (${circleVals[topCircleKey]}%)`;
+
+    const sorted = [...scores].sort((a,b)=>b.share-a.share);
+    document.getElementById('rankBody').innerHTML = sorted.map((d,i)=>{
+      const cat = gapCategory(d.gap);
+      return `<div class="rank-card" data-id="${d.id}">
+        <div class="rank-card-row">
+          <span class="rank-num mono">${i+1}</span>
+          <span class="rank-name">${escapeHtml(d.label)}</span>
+          <span class="tag ${cat.key}">${cat.label}</span>
+          <span class="row-chevron">\u203a</span>
+        </div>
+        <div class="rank-card-meta">${escapeHtml(CIRCLES[d.circle].label)} \u00b7 ${d.share.toFixed(1)}% attention \u00b7 ${d.inv}/100 effort</div>
+        <div class="rank-detail" id="detail-${d.id}" style="display:none;">${actionSuggestion(d, cat)}</div>
+      </div>`;
+    }).join('');
+
+    document.querySelectorAll('.rank-card').forEach(card=>{
+      card.addEventListener('click', ()=>{
+        const detail = document.getElementById('detail-'+card.dataset.id);
+        const isOpen = detail.style.display !== 'none';
+        detail.style.display = isOpen ? 'none' : 'block';
+        card.classList.toggle('open', !isOpen);
+      });
+    });
+
+    const others = Object.keys(circleVals).filter(k=>k!==topCircleKey);
+    const othersLine = others.map(k=>`${CIRCLES[k].label} ${circleVals[k]}%`).join(' and ');
+    const topDomain = sorted[0];
+    const stageLine = currentStage ? `You told us you're in a <strong>${currentStage.title.toLowerCase()}</strong> season, and the split reflects it. ` : '';
+
+    let p1 = `${stageLine}You had 100 points to spread across Self, Family, and Friends — no more. <strong>${CIRCLES[topCircleKey].label} ${circleVals[topCircleKey]}%</strong> came out on top, which necessarily meant ${othersLine} had to absorb the rest.`;
+    let p2 = `Inside that, <strong>${topDomain.label}</strong> claimed the single largest slice of your total attention at <strong>${topDomain.share.toFixed(1)}%</strong> of everything, across all three circles combined.`;
+
+    const biggestGaps = [...scores].filter(s=>s.gap>=4).sort((a,b)=>b.gap-a.gap);
+    const biggestOver = [...scores].filter(s=>s.gap<=-4).sort((a,b)=>a.gap-b.gap);
+    let p3 = biggestGaps.length
+      ? `<strong>${biggestGaps.slice(0,2).map(d=>d.label).join(' and ')}</strong> ${biggestGaps.length>1?'are':'is'} pulling more weight than the time being given to ${biggestGaps.length>1?'them':'it'} — that's usually where quiet resentment or guilt builds first.`
+      : `Nothing here shows a real gap between how much a thing matters and the time it's getting — your effort and your stated priorities are reasonably in sync.`;
+    let p4 = biggestOver.length
+      ? `<strong>${biggestOver.slice(0,2).map(d=>d.label).join(' and ')}</strong> ${biggestOver.length>1?'are':'is'} getting more of your actual time than ${biggestOver.length>1?'they are':'it is'} worth to you right now — a reasonable place to pull back to fund the gap above.`
+      : '';
+
+    document.getElementById('narrative').innerHTML = `<p>${p1}</p><p>${p2}</p><p>${p3}</p>${p4?`<p>${p4}</p>`:''}`;
+  }
+
+})();
+</script>
+</body>
+</html>
