@@ -395,7 +395,6 @@
   <button class="primary bar-primary-btn" id="barPrimaryBtn">Begin</button>
 </div>
 <div class="menu-popover" id="menuPopover" style="display:none;"></div>
-<input type="file" id="loadFileInput" accept="application/json,.json" style="display:none;">
 <div class="save-modal" id="saveModal" style="display:none;"></div>
 
 <script>
@@ -517,6 +516,7 @@
       document.getElementById('brange-'+it.id).addEventListener('input', (e)=>{
         rebalance(it.id, parseInt(e.target.value,10));
         syncDOM();
+        scheduleAutoSave();
       });
     });
 
@@ -545,6 +545,7 @@
       if(domainBudgets.self) domainBudgets.self.setValues(s.self);
       if(domainBudgets.family) domainBudgets.family.setValues(s.family);
       if(domainBudgets.friends) domainBudgets.friends.setValues(s.friends);
+      scheduleAutoSave();
     });
     stageGrid.appendChild(b);
   });
@@ -614,6 +615,7 @@
       inp.addEventListener('input', ()=>{
         document.getElementById(inp.id+'-val').textContent = inp.value;
         paintInvSlider(inp);
+        scheduleAutoSave();
       });
       paintInvSlider(inp);
     });
@@ -648,6 +650,7 @@
     screens.forEach((id,i)=> document.getElementById(id).classList.toggle('active', i===idx));
     window.scrollTo({top:0, behavior:'smooth'});
     updateBottomBar(screens[idx]);
+    scheduleAutoSave();
   }
 
   const BAR_CONFIG = {
@@ -699,12 +702,9 @@
         {label:'Family', action: ()=> goTo(screens.indexOf('q-family'))},
         {label:'Friends', action: ()=> goTo(screens.indexOf('q-friends'))}
       ]},
-      {label:'Save', action: ()=> saveState()},
-      {label:'Load', action: ()=> document.getElementById('loadFileInput').click()}
+      {label:'Save now', action: ()=> saveState()},
+      {label:'Reset saved data', action: ()=> clearSavedState()}
     ];
-    if(screenId === 'hero' && pendingResumeState){
-      items.push({label:'Resume your saved priorities', action: ()=> applyResumeState(pendingResumeState)});
-    }
     if(screenId === 'result'){
       items.push({label:'See your Plan of Action', action: ()=> goTo(screens.indexOf('plan'))});
       items.push({label:'Print this reading', action: ()=> window.print()});
@@ -759,11 +759,12 @@
   }
 
   const STORAGE_KEY = 'life-orbits-state';
-  let pendingResumeState = null;
+  let autosaveTimer = null;
 
   function buildStateObject(){
     const state = {
       stage: currentStage ? currentStage.id : null,
+      screen: screens[screenIndex],
       circle: circleBudget.getValues(),
       domains: {
         self: domainBudgets.self.getValues(),
@@ -779,30 +780,37 @@
   }
 
   async function saveState(){
-    const state = buildStateObject();
-    try{
-      if(window.storage) await window.storage.set(STORAGE_KEY, JSON.stringify(state), false);
-    }catch(err){
-      // silent bonus attempt only
-    }
-    const json = JSON.stringify(state, null, 2);
-    const FILENAME = 'orbitlife.json';
+    persistState(true);
+  }
 
+  function persistState(showToastOnSave){
+    if(!circleBudget || !domainBudgets.self || !domainBudgets.family || !domainBudgets.friends) return;
     try{
-      if(navigator.share && navigator.canShare){
-        const file = new File([json], FILENAME, {type:'application/json'});
-        if(navigator.canShare({files:[file]})){
-          await navigator.share({files:[file], title:'Life Orbits save file'});
-          showToast('Saved \u2713');
-          return;
-        }
-      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(buildStateObject()));
+      if(showToastOnSave) showToast('Saved \u2713');
     }catch(err){
-      if(err && err.name === 'AbortError') return; // user cancelled the share sheet — not an error
-      // otherwise fall through to the guaranteed text fallback below
+      if(showToastOnSave) showToast('Could not save on this device');
     }
+  }
 
-    showSaveTextFallback(json);
+  function scheduleAutoSave(){
+    clearTimeout(autosaveTimer);
+    autosaveTimer = setTimeout(function(){
+      persistState(false);
+    }, 220);
+  }
+
+  function clearSavedState(){
+    const ok = window.confirm('Clear all saved Life Orbits data on this device?');
+    if(!ok) return;
+    try{
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(ANCHORS_KEY);
+      showToast('Saved data cleared');
+      setTimeout(function(){ location.reload(); }, 250);
+    }catch(err){
+      showToast('Could not clear saved data');
+    }
   }
 
   function showSaveTextFallback(json){
@@ -841,40 +849,17 @@
     });
   }
 
-  function loadStateFromFile(file){
-    const reader = new FileReader();
-    reader.onload = ()=>{
-      try{
-        const state = JSON.parse(reader.result);
-        applyResumeState(state);
-        showToast('Loaded \u2713');
-      }catch(err){
-        showToast('Couldn\u2019t read that file');
-      }
-    };
-    reader.onerror = ()=> showToast('Couldn\u2019t read that file');
-    reader.readAsText(file);
-  }
-
-  document.getElementById('loadFileInput').addEventListener('change', (e)=>{
-    const file = e.target.files[0];
-    e.target.value = '';
-    if(file) loadStateFromFile(file);
-  });
-
-  async function tryLoadSavedState(){
+  function tryLoadSavedState(){
     try{
-      if(!window.storage) return;
-      const result = await window.storage.get(STORAGE_KEY, false);
-      if(result && result.value){
-        pendingResumeState = JSON.parse(result.value);
-      }
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
     }catch(err){
-      // nothing saved yet
+      return null;
     }
   }
 
   function applyResumeState(state){
+    if(!state || !state.circle || !state.domains || !state.inv) return;
     if(state.stage){
       const stageObj = STAGES.find(s=>s.id===state.stage);
       if(stageObj){
@@ -910,11 +895,12 @@
         }
       });
     }
-    renderResult();
-    goTo(screens.indexOf('result'));
+    const targetScreen = (typeof state.screen === 'string' && screens.indexOf(state.screen) >= 0) ? state.screen : 'result';
+    if(targetScreen === 'result' || targetScreen === 'rebalance' || targetScreen === 'plan'){
+      renderResult();
+    }
+    goTo(screens.indexOf(targetScreen));
   }
-
-  tryLoadSavedState();
 
   // ---------- Custom effort anchors ----------
   const ANCHORS_KEY = 'life-orbits-anchors';
@@ -934,9 +920,9 @@
       }
     });
     try{
-      if(!window.storage) throw new Error('storage unavailable');
-      await window.storage.set(ANCHORS_KEY, JSON.stringify(overrides), false);
+      localStorage.setItem(ANCHORS_KEY, JSON.stringify(overrides));
       status.textContent = 'Saved \u2713 — your sliders and suggestions now use these.';
+      scheduleAutoSave();
     }catch(err){
       status.textContent = 'Applied for this session (could not save for next time).';
     }
@@ -945,10 +931,9 @@
 
   async function tryLoadAnchors(){
     try{
-      if(!window.storage) return;
-      const result = await window.storage.get(ANCHORS_KEY, false);
-      if(result && result.value){
-        const overrides = JSON.parse(result.value);
+      const raw = localStorage.getItem(ANCHORS_KEY);
+      if(raw){
+        const overrides = JSON.parse(raw);
         Object.keys(overrides).forEach(id=>{
           const d = DOMAINS.find(x=>x.id===id);
           if(!d) return;
@@ -965,7 +950,17 @@
   }
 
   tryLoadAnchors();
-  updateBottomBar('hero');
+  const savedState = tryLoadSavedState();
+  if(savedState) applyResumeState(savedState);
+  updateBottomBar(screens[screenIndex]);
+
+  // Persist latest progress when the app backgrounds or closes.
+  window.addEventListener('visibilitychange', function(){
+    if(document.visibilityState === 'hidden') persistState(false);
+  });
+  window.addEventListener('beforeunload', function(){
+    persistState(false);
+  });
 
   const INV_MIN = 1, INV_MAX = 100, TRANSFER_STEP = 10;
 
@@ -1122,6 +1117,7 @@
     paintInvSlider(fromEl);
     paintInvSlider(toEl);
     renderResult();
+    scheduleAutoSave();
   }
 
   function renderResult(){
