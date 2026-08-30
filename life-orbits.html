@@ -403,6 +403,17 @@
   window.addEventListener('error', function(e){ console.error('Life Orbits caught:', e.message); });
   window.addEventListener('unhandledrejection', function(e){ console.error('Life Orbits caught rejection:', e.reason); });
 
+  // Prevent double-tap zoom while preserving two-finger pinch zoom.
+  let lastSingleTouchEnd = 0;
+  document.addEventListener('touchend', function(e){
+    if(e.touches.length > 0 || e.changedTouches.length !== 1) return;
+    const now = Date.now();
+    if(now - lastSingleTouchEnd < 320){
+      e.preventDefault();
+    }
+    lastSingleTouchEnd = now;
+  }, { passive:false });
+
   const DOMAINS = [
     {id:'health', circle:'self', label:'Health', desc:'Sleep, movement, nutrition, mental steadiness', lowA:'No real exercise or sleep routine', highA:'Consistent workouts, solid sleep, intentional eating', nudge:'Add one 20-minute walk this week, or move bedtime up by 30 minutes.', trim:'Skip one extra gym session this week and use the time elsewhere.'},
     {id:'school', circle:'self', label:'School', desc:'Formal learning, training, certification', lowA:'Rarely opening the books outside class', highA:'3–4 focused hours most nights', nudge:'Block one extra 45-minute study session this week.', trim:'Cap tonight’s studying at what you already planned.'},
@@ -702,13 +713,14 @@
         {label:'Family', action: ()=> goTo(screens.indexOf('q-family'))},
         {label:'Friends', action: ()=> goTo(screens.indexOf('q-friends'))}
       ]},
+      {label:'Reading', action: ()=>{ renderResult(); goTo(screens.indexOf('result')); }},
       {label:'Save now', action: ()=> saveState()},
       {label:'Reset saved data', action: ()=> clearSavedState()}
     ];
     if(screenId === 'result'){
       items.push({label:'See your Plan of Action', action: ()=> goTo(screens.indexOf('plan'))});
       items.push({label:'Print this reading', action: ()=> window.print()});
-      items.push({label:'Start over', action: ()=> location.reload()});
+      items.push({label:'Start over', action: ()=> startOver()});
     }
     return items;
   }
@@ -811,6 +823,34 @@
     }catch(err){
       showToast('Could not clear saved data');
     }
+  }
+
+  function startOver(){
+    selectedTransfer = null;
+    lastScores = null;
+    currentStage = null;
+    document.querySelectorAll('.stage-btn').forEach(function(x){ x.classList.remove('selected'); });
+
+    circleBudget.setValues({self:34,family:33,friends:33});
+    domainBudgets.self.setValues({health:25,school:25,job:25,god:25});
+    domainBudgets.family.setValues({partner:33,immediate:33,relatives:34});
+    domainBudgets.friends.setValues({goodfriends:33,acquaintances:33,hangout:34});
+
+    DOMAINS.forEach(function(d){
+      const inv = document.getElementById(d.id+'-inv');
+      const invVal = document.getElementById(d.id+'-inv-val');
+      if(inv){
+        inv.value = 50;
+        paintInvSlider(inv);
+      }
+      if(invVal){
+        invVal.textContent = '50';
+      }
+    });
+
+    goTo(screens.indexOf('hero'));
+    persistState(false);
+    showToast('Started over');
   }
 
   function showSaveTextFallback(json){
@@ -923,6 +963,8 @@
       localStorage.setItem(ANCHORS_KEY, JSON.stringify(overrides));
       status.textContent = 'Saved \u2713 — your sliders and suggestions now use these.';
       scheduleAutoSave();
+      renderResult();
+      goTo(screens.indexOf('result'));
     }catch(err){
       status.textContent = 'Applied for this session (could not save for next time).';
     }
