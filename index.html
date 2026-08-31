@@ -774,7 +774,8 @@
       ]},
       {label:'Reading', action: ()=>{ renderResult(); goTo(screens.indexOf('result')); }},
       {label:'Save now', action: ()=> saveState()},
-      {label:'Reset saved data', action: ()=> clearSavedState()}
+      {label:'Reset saved data', action: ()=> clearSavedState()},
+      {label:'Manage Subscription', action: ()=> window.open('https://billing.stripe.com/p/login/00w00i6hkfpb0g1gYG9fW00', '_blank')}
     ];
     if(screenId === 'result'){
       items.push({label:'See your Plan of Action', action: ()=> goTo(screens.indexOf('plan'))});
