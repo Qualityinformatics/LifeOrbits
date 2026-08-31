@@ -289,6 +289,65 @@
 </style>
 </head>
 <body>
+
+<style>
+  .lo-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    background: radial-gradient(ellipse at 50% -10%, #1c2050 0%, #12142a 55%);
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+    font-family: 'Inter', sans-serif; color: #f1eee4;
+  }
+  .lo-gate[hidden] { display: none; }
+  .lo-gate-card { width: 100%; max-width: 360px; text-align: center; }
+  .lo-gate-brand { font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px; margin-bottom: 22px; color: #d9a441; }
+  #lo-gate-body p { color: #a9acc9; font-size: 13.5px; margin-bottom: 16px; line-height: 1.5; }
+  .lo-gate-btn {
+    display: block; width: 100%; padding: 13px 14px; border-radius: 10px; border: none;
+    cursor: pointer; background: #d9a441; color: #12142a; font-weight: 700; font-size: 14px;
+    font-family: inherit; text-decoration: none; box-sizing: border-box; line-height: 1.4;
+  }
+  .lo-gate-link { color: #d9a441; text-decoration: none; font-size: 13px; }
+</style>
+
+<div id="lo-gate" class="lo-gate" hidden>
+  <div class="lo-gate-card">
+    <div class="lo-gate-brand">Life Orbits</div>
+    <div id="lo-gate-body"></div>
+  </div>
+</div>
+<script>
+(() => {
+  const ACCESS_KEY = 'lo-subscriber-v1'
+  const PRICING_URL = 'https://www.healthguru.fit/orbits/#pricing'
+  const PORTAL_URL = 'https://billing.stripe.com/p/login/00w00i6hkfpb0g1gYG9fW00'
+
+  const gate = document.getElementById('lo-gate')
+  const body = document.getElementById('lo-gate-body')
+  if (!gate || !body) return
+
+  // Stripe payment links can redirect to /?subscribed=1 after checkout.
+  // On a static site, this is only a convenience gate (not secure validation).
+  const params = new URLSearchParams(window.location.search)
+  if (params.get('subscribed') === '1') localStorage.setItem(ACCESS_KEY, '1')
+
+  if (localStorage.getItem(ACCESS_KEY) === '1') {
+    gate.hidden = true
+  } else {
+    gate.hidden = false
+    body.innerHTML = `
+      <p>Subscribed customers should open this page from the checkout success redirect.</p>
+      <button class="lo-gate-btn" id="lo-access-continue">I subscribed — continue</button>
+      <p style="margin-top:14px"><a class="lo-gate-link" href="${PRICING_URL}">Not a subscriber yet? See pricing →</a></p>
+      <p style="margin-top:8px"><a class="lo-gate-link" href="${PORTAL_URL}">Customer Portal</a></p>
+    `
+    document.getElementById('lo-access-continue').addEventListener('click', () => {
+      localStorage.setItem(ACCESS_KEY, '1')
+      gate.hidden = true
+    })
+  }
+})()
+</script>
+
 <div id="app">
 
   <section class="screen active" id="hero">
