@@ -300,7 +300,7 @@
   .lo-gate[hidden] { display: none; }
   .lo-gate-card { width: 100%; max-width: 360px; text-align: center; }
   .lo-gate-brand { font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px; margin-bottom: 22px; color: #d9a441; }
-  #lo-gate-body p { color: #a9acc9; font-size: 13.5px; margin-bottom: 16px; line-height: 1.5; }
+  .lo-gate-card p { color: #a9acc9; font-size: 13.5px; margin-bottom: 16px; line-height: 1.5; }
   .lo-gate-btn {
     display: block; width: 100%; padding: 13px 14px; border-radius: 10px; border: none;
     cursor: pointer; background: #d9a441; color: #12142a; font-weight: 700; font-size: 14px;
@@ -315,6 +315,21 @@
     <div id="lo-gate-body"></div>
   </div>
 </div>
+<div id="lo-install-gate" class="lo-gate" hidden>
+  <div class="lo-gate-card">
+    <div class="lo-gate-brand">Life Orbits</div>
+    <div id="lo-install-body"></div>
+  </div>
+</div>
+<script>
+  // Captured as early as possible — Chrome fires this on page load, well
+  // before the subscriber gate resolves, so we stash it for later.
+  window.__deferredInstallPrompt = null
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault()
+    window.__deferredInstallPrompt = e
+  })
+</script>
 <script>
 (() => {
   const ACCESS_KEY = 'lo-subscriber-v1'
@@ -332,6 +347,7 @@
 
   if (localStorage.getItem(ACCESS_KEY) === '1') {
     gate.hidden = true
+    maybeShowInstallPrompt()
   } else {
     gate.hidden = false
     body.innerHTML = `
@@ -343,9 +359,69 @@
     document.getElementById('lo-access-continue').addEventListener('click', () => {
       localStorage.setItem(ACCESS_KEY, '1')
       gate.hidden = true
+      maybeShowInstallPrompt()
     })
   }
+
+  // One-time "install this app" screen shown the first time a confirmed
+  // subscriber opens the app. Skipped entirely once already installed
+  // (standalone display mode) or on desktop browsers.
+  function maybeShowInstallPrompt() {
+    const INSTALL_KEY = 'lo-install-prompted-v1'
+    if (localStorage.getItem(INSTALL_KEY)) return
+
+    const installGate = document.getElementById('lo-install-gate')
+    const installBody = document.getElementById('lo-install-body')
+    if (!installGate || !installBody) return
+
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true
+    const ua = navigator.userAgent
+    const isIOS = /iPhone|iPad|iPod/.test(ua) && !window.MSStream
+    const isAndroid = /Android/.test(ua)
+
+    if (isStandalone || (!isIOS && !isAndroid)) {
+      localStorage.setItem(INSTALL_KEY, '1') // already installed, or desktop — nothing to prompt
+      return
+    }
+
+    const dismiss = () => { localStorage.setItem(INSTALL_KEY, '1'); installGate.hidden = true }
+
+    if (isIOS) {
+      installGate.hidden = false
+      installBody.innerHTML = `
+        <p>Install Life Orbits on your phone for one-tap access from your Home Screen.</p>
+        <p>Tap the <b>Share</b> icon in Safari's toolbar, then choose <b>Add to Home Screen</b>.</p>
+        <button class="lo-gate-btn" id="lo-install-dismiss">Got it</button>
+      `
+      document.getElementById('lo-install-dismiss').addEventListener('click', dismiss)
+      return
+    }
+
+    // Android/Chrome: prefer the native install prompt when available
+    installGate.hidden = false
+    installBody.innerHTML = `
+      <p>Install Life Orbits on your phone for one-tap access from your Home Screen.</p>
+      <button class="lo-gate-btn" id="lo-install-now">Install App</button>
+      <p style="margin-top:14px"><a class="lo-gate-link" href="#" id="lo-install-skip">Not now</a></p>
+    `
+    document.getElementById('lo-install-now').addEventListener('click', async () => {
+      const promptEvent = window.__deferredInstallPrompt
+      if (promptEvent) {
+        promptEvent.prompt()
+        try { await promptEvent.userChoice } catch {}
+        window.__deferredInstallPrompt = null
+      }
+      dismiss()
+    })
+    document.getElementById('lo-install-skip').addEventListener('click', e => { e.preventDefault(); dismiss() })
+  }
 })()
+</script>
+<script>
+  // PWA: offline support + installability (needs https; no-op on file://)
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+    navigator.serviceWorker.register('sw.js').catch(() => {})
+  }
 </script>
 
 <div id="app">
