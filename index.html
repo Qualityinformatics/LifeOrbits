@@ -307,6 +307,12 @@
     font-family: inherit; text-decoration: none; box-sizing: border-box; line-height: 1.4;
   }
   .lo-gate-link { color: #d9a441; text-decoration: none; font-size: 13px; }
+  .lo-gate-input {
+    width: 100%; padding: 13px 14px; border-radius: 10px; border: 1px solid #33376a;
+    background: #1a1d3a; color: #f1eee4; font-family: inherit; font-size: 14px;
+    margin-bottom: 10px; box-sizing: border-box;
+  }
+  .lo-gate-input:focus { outline: none; border-color: #d9a441; }
 </style>
 
 <div id="lo-gate" class="lo-gate" hidden>
@@ -332,7 +338,7 @@
 </script>
 <script>
 (() => {
-  const ACCESS_KEY = 'lo-subscriber-v1'
+  const TOKEN_KEY = 'lo-access-token'
   const PRICING_URL = 'https://www.healthguru.fit/orbits/#pricing'
   const PORTAL_URL = 'https://billing.stripe.com/p/login/00w00i6hkfpb0g1gYG9fW00'
 
@@ -340,28 +346,77 @@
   const body = document.getElementById('lo-gate-body')
   if (!gate || !body) return
 
-  // Stripe payment links can redirect to /?subscribed=1 after checkout.
-  // On a static site, this is only a convenience gate (not secure validation).
-  const params = new URLSearchParams(window.location.search)
-  if (params.get('subscribed') === '1') localStorage.setItem(ACCESS_KEY, '1')
-
-  if (localStorage.getItem(ACCESS_KEY) === '1') {
+  function grantAccess(token) {
+    if (token) localStorage.setItem(TOKEN_KEY, token)
     gate.hidden = true
     maybeShowInstallPrompt()
-  } else {
+  }
+
+  function showGate(message) {
     gate.hidden = false
     body.innerHTML = `
-      <p>Subscribed customers should open this page from the checkout success redirect.</p>
-      <button class="lo-gate-btn" id="lo-access-continue">I subscribed — continue</button>
+      ${message ? `<p>${message}</p>` : '<p>Enter the email you used at checkout to unlock the app on this device.</p>'}
+      <input class="lo-gate-input" id="lo-restore-email" type="email" placeholder="you@example.com" autocomplete="email"/>
+      <button class="lo-gate-btn" id="lo-restore-continue">Unlock</button>
       <p style="margin-top:14px"><a class="lo-gate-link" href="${PRICING_URL}">Not a subscriber yet? See pricing →</a></p>
       <p style="margin-top:8px"><a class="lo-gate-link" href="${PORTAL_URL}">Customer Portal</a></p>
     `
-    document.getElementById('lo-access-continue').addEventListener('click', () => {
-      localStorage.setItem(ACCESS_KEY, '1')
-      gate.hidden = true
-      maybeShowInstallPrompt()
-    })
+    const btn = document.getElementById('lo-restore-continue')
+    const input = document.getElementById('lo-restore-email')
+    const submit = async () => {
+      const email = input.value.trim()
+      if (!email) return
+      btn.disabled = true
+      btn.textContent = 'Checking…'
+      try {
+        const res = await fetch(`/api/check-access?email=${encodeURIComponent(email)}`)
+        const data = await res.json()
+        if (data.active) { grantAccess(data.token); return }
+        showGate('No active subscription found for that email. Try again, or check the email you used at checkout.')
+      } catch {
+        showGate('Could not reach the server — check your connection and try again.')
+      }
+    }
+    btn.addEventListener('click', submit)
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') submit() })
   }
+
+  async function init() {
+    gate.hidden = false
+    body.innerHTML = '<p>Checking your subscription…</p>'
+
+    const params = new URLSearchParams(window.location.search)
+    const sessionId = params.get('session_id')
+
+    if (sessionId) {
+      // Stripe's payment link should redirect to /?session_id={CHECKOUT_SESSION_ID}
+      window.history.replaceState({}, '', window.location.pathname) // don't re-verify on refresh
+      try {
+        const res = await fetch(`/api/verify-session?session_id=${encodeURIComponent(sessionId)}`)
+        const data = await res.json()
+        if (data.active) { grantAccess(data.token); return }
+      } catch { /* fall through to token/email path below */ }
+    }
+
+    const storedToken = localStorage.getItem(TOKEN_KEY)
+    if (storedToken) {
+      try {
+        const res = await fetch(`/api/check-access?token=${encodeURIComponent(storedToken)}`)
+        const data = await res.json()
+        if (data.active) { grantAccess(storedToken); return }
+      } catch {
+        // Couldn't reach the server — don't lock out an already-verified
+        // subscriber over a network blip.
+        grantAccess(storedToken)
+        return
+      }
+    }
+
+    localStorage.removeItem(TOKEN_KEY)
+    showGate()
+  }
+
+  init()
 
   // One-time "install this app" screen shown the first time a confirmed
   // subscriber opens the app. Skipped entirely once already installed
@@ -851,7 +906,19 @@
       {label:'Reading', action: ()=>{ renderResult(); goTo(screens.indexOf('result')); }},
       {label:'Save now', action: ()=> saveState()},
       {label:'Reset saved data', action: ()=> clearSavedState()},
-      {label:'Manage Subscription', action: ()=> window.open('https://billing.stripe.com/p/login/00w00i6hkfpb0g1gYG9fW00', '_blank')}
+      {label:'Manage Subscription', action: ()=> {
+        const FALLBACK_PORTAL_URL = 'https://billing.stripe.com/p/login/00w00i6hkfpb0g1gYG9fW00'
+        const win = window.open('about:blank', '_blank') // open synchronously so browsers don't block it
+        const accessToken = localStorage.getItem('lo-access-token')
+        if (accessToken) {
+          fetch(`/api/portal-link?token=${encodeURIComponent(accessToken)}`)
+            .then(res => res.json())
+            .then(data => { if (win) win.location = data.url || FALLBACK_PORTAL_URL })
+            .catch(() => { if (win) win.location = FALLBACK_PORTAL_URL })
+        } else if (win) {
+          win.location = FALLBACK_PORTAL_URL
+        }
+      }}
     ];
     if(screenId === 'result'){
       items.push({label:'See your Plan of Action', action: ()=> goTo(screens.indexOf('plan'))});
